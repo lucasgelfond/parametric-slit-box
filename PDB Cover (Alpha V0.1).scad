@@ -7,16 +7,10 @@ slitWidth = 10;
 slitHeight = 2.5;
 distSlits = 2;
 
-numOfSlits = 6;
-
-difference() {
-    cube([boxX, boxY, boxZ], center=true);
-    cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-boxThick*2],center=true);
-}
-
+numOfSlits = 2;
 
 module slit() {
-    #cube([boxThick*2, slitWidth, slitHeight], center=true);
+    cube([boxThick*2, slitWidth, slitHeight], center=true);
 }
 
 module slits() {
@@ -24,6 +18,14 @@ module slits() {
         translate([boxX/2,0,0]) {
             slit();
         }
+    }
+    else if(numOfSlits == 2) {
+        translate([boxX/2, (slitWidth+distSlits)/2, 0]) {
+                slit();
+            }
+            translate([boxX/2, (slitWidth+distSlits)/-2, 0]) {
+                slit();
+            }
     }
     else if(numOfSlits % 2 > 0) {     //If the number of slits is an odd number:
         translate([boxX/2,0,0]) { //Put one slit in the middle.
@@ -54,4 +56,13 @@ module slits() {
  } 
     
 
-slits();
+
+module box() {
+    difference() {
+        cube([boxX, boxY, boxZ], center=true);
+        cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-boxThick*2],center=true);
+        slits();
+    }
+}
+
+box();
