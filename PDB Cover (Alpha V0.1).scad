@@ -7,7 +7,7 @@ slitWidth = 10;
 slitHeight = 2.5;
 distSlits = 2;
 
-numOfSlits = 2;
+numOfSlits = 7;
 
 module slit() {
     cube([boxThick*2, slitWidth, slitHeight], center=true);
@@ -41,14 +41,23 @@ module slits() {
         }
     }
     else if(numOfSlits % 2 == 0) { //If the number of slits is even
-        for(numOfSlits = [1:numOfSlits/2]) {
-            translate([boxX/2, (slitWidth/2+distSlits/2), 0]) {
-                slit();
-            }
-            translate([boxX/2, (slitWidth/2+distSlits/2)*numOfSlits, 0]) {
-                slit();
-            }
+        //Creating the two middle pieces
+        translate([boxX/2, (slitWidth+distSlits)/-2, 0]) {
+            slit();
         }
+        translate([boxX/2, (slitWidth+distSlits)/2, 0]) {
+            slit();
+         }
+         //Make half of the amount of slits that exist, minus the first two:
+         for(numOfSlits = [2:numOfSlits/2]) {
+             //The 0.5 in both of these is in reference to above, compensating for it negatively. For the negative one, the value is positive, for the positive one, the value is negative. 
+             translate([boxX/2, (slitWidth+distSlits)*(numOfSlits-0.5), 0]) {
+                    slit();
+             }
+             translate([boxX/2, (slitWidth+distSlits)*(0.5-numOfSlits), 0]) {
+                 slit();
+             }
+         }
     }
     else {
         //Something went wrong
