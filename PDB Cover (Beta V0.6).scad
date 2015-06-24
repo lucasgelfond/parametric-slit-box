@@ -3,17 +3,17 @@ boxX = 65;
 //The width of the box (mm).
 boxY = 65;
 //The height of the box (mm).
-boxZ = 8;
+boxZ = 15;
 
 //The thickness of the inside pieces of the box.
 boxThick = 6;
 
 //The width of the slit(s).
-slitWidth = 42.5;
+slitWidth = 25;
 //The height of the slit(s).
-slitHeight = 4;
+slitHeight = 7.5;
 //The distance between slits.
-distSlits = 2;
+distSlits = 3;
 
 //The X size of the mounting pattern (the first one, ie what mounting pattern your PDB is)
 mountPatternX = 45;
@@ -24,7 +24,7 @@ holeSize = 4.25;
 
 
 //The number of slits. This is fully customizable.
-numOfSlits = 1;
+numOfSlits = 2;
 
 //The distance of the plates before they print.
 distPlates = 10;
@@ -33,7 +33,7 @@ distPlates = 10;
 sfn = 30;
 
 //Mode changer. Mode 1 is the whole thing put together (roughly, no holes) and mode 2 is the two plates separated. 
-mode = 2;
+mode = 1;
 
 
 //The mounting pattern for attaching the two plates (x).
@@ -51,7 +51,7 @@ module slit() {
     cube([boxX, slitWidth, slitHeight], center=true);
 }
 module hole() {
-    cylinder(r=holeSize/2, h = boxThick * 3, $fn = sfn, center=true);
+    cylinder(r=holeSize/2, h = boxZ*2, $fn = sfn, center=true);
 }
 
 
@@ -161,6 +161,7 @@ module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
         cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-boxThick*2],center=true);
+        cube([boxX-boxThick*2, boxY-boxThick*2, slitWidth/2],center=true);
         rotate([0,0,0]) {
             slits();
         }
@@ -232,7 +233,10 @@ module plates() {
 
 module mode() {
     if(mode == 1) {
-        box();
+        bottomPlate();
+        rotate([0,180,0]) {
+            topPlate();
+        }
      }
      else if(mode == 2) {
         plates();
