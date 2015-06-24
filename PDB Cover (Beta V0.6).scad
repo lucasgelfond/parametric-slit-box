@@ -30,7 +30,7 @@ numOfSlits = 2;
 distPlates = 10;
 
 //The detail of all spheres/cylinders in the shape. A value between 30 and 100 is fairly typical. 
-sfn = 100;
+sfn = 30;
 
 //Mode changer. Mode 1 is what the box would look like put together (assembly mode), and mode 2 is the two plates separated (printing mode). 
 mode = 2;
@@ -47,6 +47,7 @@ countersinkDist =  3;
 //The size of the countersunk hole.
 countersunkHoleSize = 5.6;
 
+
 module slit() {
     cube([boxX, slitWidth, slitHeight], center=true);
 }
@@ -56,8 +57,9 @@ module hole() {
 
 
 module countersunkHole() {
-    #cylinder(r=countersunkHoleSize/2, h = countersinkDist+1, $fn = sfn, center=true);
+    cylinder(r=countersunkHoleSize/2, h = countersinkDist, $fn = sfn, center=true);
 }
+
 
 module slits() {
     if (numOfSlits == 1) {
@@ -141,21 +143,39 @@ module attachementHoles() {
         hole();
     }
 }
-module countersunkHoles() {
-    translate([attachMountHoleX/2, attachMountHoleY/2, (boxZ-countersinkDist)/-2-1]) {
+module countersunkHoles2() {
+    translate([attachMountHoleX/2, attachMountHoleY/2, (boxZ-countersinkDist)/2]) {
           countersunkHole();
     }
-    translate([attachMountHoleX/-2, attachMountHoleY/2, 1-countersinkDist/2]) {
+    translate([attachMountHoleX/-2, attachMountHoleY/2, (boxZ-countersinkDist)/2]) {
           countersunkHole();
     }
-    translate([attachMountHoleX/2, attachMountHoleY/-2, 1-countersinkDist/2]) {
+    translate([attachMountHoleX/2, attachMountHoleY/-2, (boxZ-countersinkDist)/2]) {
           countersunkHole();
     }
-    translate([attachMountHoleX/-2, attachMountHoleY/-2, 1-countersinkDist/2]) {
+    translate([attachMountHoleX/-2, attachMountHoleY/-2, (boxZ-countersinkDist)/2]) {
           countersunkHole();
     }
 
 }
+module countersunkHoles1() {
+    translate([attachMountHoleX/2, attachMountHoleY/2, (boxZ-countersinkDist)/-2]) {
+          countersunkHole();
+    }
+    translate([attachMountHoleX/-2, attachMountHoleY/2, (boxZ-countersinkDist)/-2]) {
+          countersunkHole();
+    }
+    translate([attachMountHoleX/2, attachMountHoleY/-2, (boxZ-countersinkDist)/-2]) {
+          countersunkHole();
+    }
+    translate([attachMountHoleX/-2, attachMountHoleY/-2, (boxZ-countersinkDist)/-2]) {
+          countersunkHole();
+    }
+
+}
+
+
+
 
 module box() {
     difference() {
@@ -197,7 +217,7 @@ module bottomPlate() {
             cube([boxX+1, boxY+1, boxZ], center=true);
         }
         translate([0,0,0]) {
-            #countersunkHoles();
+            countersunkHoles1();
         }
     }
 }
@@ -209,10 +229,11 @@ module topPlate() {
             translate([0,0,boxZ/-2]) {
                 cube([boxX+1, boxY+1, boxZ], center=true);
             }
-           #countersunkHoles();
+           countersunkHoles2();
         }
     }
 }
+
 
 
 module plates() {
