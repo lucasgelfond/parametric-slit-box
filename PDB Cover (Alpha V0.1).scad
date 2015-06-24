@@ -12,6 +12,7 @@ mountPatternY = 45;
 holeSize = 4.5;
 
 numOfSlits = 1;
+distPlates = 10;
 
 sfn = 100;
 
@@ -21,6 +22,7 @@ module slit() {
 module hole() {
     cylinder(r=holeSize/2, h = boxThick * 3, $fn = sfn);
 }
+
 
 module slits() {
     if (numOfSlits == 1) {
@@ -75,6 +77,21 @@ module slits() {
     
 
 
+module holes() {
+    translate([mountPatternX/2, mountPatternY/2,(boxZ+boxThick)/-2]) {
+        hole();
+    }
+    translate([mountPatternX/-2, mountPatternY/2, (boxZ+boxThick)/-2]) {
+        hole();
+    }
+    translate([mountPatternX/2, mountPatternY/-2, (boxZ+boxThick)/-2]) {
+        hole();
+    }
+    translate([mountPatternX/-2, mountPatternY/-2, (boxZ+boxThick)/-2]) {
+        hole();
+    }
+}
+
 module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
@@ -95,22 +112,38 @@ module box() {
 }
 
 
-module cover() {
+
+
+module bottomPlate() {
     difference() {
         box();
-        translate([mountPatternX/2, mountPatternY/2,(boxZ+boxThick)/-2]) {
-            hole();
+        holes();
+        translate([0,0,boxZ/2]) {
+            cube([boxX+1, boxY+1, boxZ], center=true);
         }
-        translate([mountPatternX/-2, mountPatternY/2, (boxZ+boxThick)/-2]) {
-            hole();
-        }
-        translate([mountPatternX/2, mountPatternY/-2, (boxZ+boxThick)/-2]) {
-            hole();
-        }
-        translate([mountPatternX/-2, mountPatternY/-2, (boxZ+boxThick)/-2]) {
-            hole();
-        }
-    
     }
 }
-cover();
+
+module topPlate() {
+    rotate([0,180,0]) {
+        difference() {
+            box();
+            translate([0,0,boxZ/-2]) {
+                cube([boxX+1, boxY+1, boxZ], center=true);
+            }
+        }
+    }
+}
+
+module plates() {
+    translate([0, (distPlates+boxY)/2, 0]) {
+        topPlate();
+    }
+    translate([0, (distPlates+boxY)/-2, 0]) {
+        bottomPlate();
+    }
+}
+
+plates();
+
+
