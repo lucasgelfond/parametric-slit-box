@@ -29,8 +29,8 @@ numOfSlits = 2;
 //The distance of the plates before they print.
 distPlates = 10;
 
-//The detail of all spheres/cylinders in the shape.
-sfn = 30;
+//The detail of all spheres/cylinders in the shape. A value between 30 and 100 is fairly typical. 
+sfn = 100;
 
 //Mode changer. Mode 1 is what the box would look like put together (assembly mode), and mode 2 is the two plates separated (printing mode). 
 mode = 1;
