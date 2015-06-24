@@ -20,7 +20,7 @@ mountPatternX = 45;
 //The Y size of the mounting pattern (the first one, ie what mounting pattern your PDB is)
 mountPatternY = 45;
 //The size of all of the screw holes in the model.
-holeSize = 4.5;
+holeSize = 4.25;
 
 
 //The number of slits. This is fully customizable.
@@ -30,7 +30,7 @@ numOfSlits = 1;
 distPlates = 10;
 
 //The detail of all spheres/cylinders in the shape.
-sfn = 100;
+sfn = 30;
 
 //Mode changer. Mode 1 is the whole thing put together (roughly, no holes) and mode 2 is the two plates separated. 
 mode = 2;
@@ -40,13 +40,24 @@ mode = 2;
 attachMountHoleX = 57.5;
 //The mounting pattern for attaching the two plates (y).
 attachMountHoleY = 57.5;
+
+//The distance to countersink the screw holes.
+countersinkDist = 1.5;
+
+//The size of the countersunk hole.
+countersunkHoleSize = 5.6;
+
 module slit() {
     cube([boxX, slitWidth, slitHeight], center=true);
 }
 module hole() {
-    cylinder(r=holeSize/2, h = boxThick * 3, $fn = sfn);
+    cylinder(r=holeSize/2, h = boxThick * 3, $fn = sfn, center=true);
 }
 
+
+module countersunkHole() {
+    cylinder(r=countersunkHoleSize/2, h = countersinkDist+1, $fn = sfn, center=true);
+}
 
 module slits() {
     if (numOfSlits == 1) {
@@ -130,6 +141,22 @@ module attachementHoles() {
         hole();
     }
 }
+module countersunkHoles() {
+    translate([attachMountHoleX/2, attachMountHoleY/2, countersinkDist/4-1]) {
+          countersunkHole();
+    }
+    translate([attachMountHoleX/-2, attachMountHoleY/2, countersinkDist/4-1]) {
+          countersunkHole();
+    }
+    translate([attachMountHoleX/2, attachMountHoleY/-2, countersinkDist/4-1]) {
+          countersunkHole();
+    }
+    translate([attachMountHoleX/-2, attachMountHoleY/-2, countersinkDist/4-1]) {
+          countersunkHole();
+    }
+
+}
+
 module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
@@ -152,9 +179,11 @@ module box() {
         }
         rotate([0,180,0]) {
             attachementHoles();
+        
         }  
     }
 }
+
 
 
 
@@ -180,12 +209,23 @@ module topPlate() {
     }
 }
 
+
 module plates() {
-    translate([0, (distPlates+boxY)/2, 0]) {
-        topPlate();
-    }
-    translate([0, (distPlates+boxY)/-2, 0]) {
-        bottomPlate();
+    difference() {
+        union() {
+            translate([0, (distPlates+boxY)/2, 0]) {
+                topPlate();
+            }
+            translate([0, (distPlates+boxY)/-2, 0]) {
+                bottomPlate();
+            }
+        }
+        translate([0,(distPlates+boxY)/2,boxZ/-4]) {
+            countersunkHoles();
+        }
+        translate([0,(distPlates+boxY)/-2,boxZ/-4]) {
+            countersunkHoles();
+        }
     }
 }
 
