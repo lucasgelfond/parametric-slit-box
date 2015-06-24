@@ -1,16 +1,25 @@
-boxX = 45;
-boxY = 45;
+boxX = 55;
+boxY = 55;
 boxZ = 10;
 boxThick = 2.5;
 
-slitWidth = 10;
+slitWidth = 35;
 slitHeight = 2.5;
 distSlits = 2;
 
-numOfSlits = 5;
+mountPatternX = 45;
+mountPatternY = 45;
+holeSize = 4.5;
+
+numOfSlits = 1;
+
+sfn = 100;
 
 module slit() {
-    cube([boxThick*2, slitWidth, slitHeight], center=true);
+    cube([boxThick*3, slitWidth, slitHeight], center=true);
+}
+module hole() {
+    cylinder(r=holeSize/2, h = boxThick * 3, $fn = sfn);
 }
 
 module slits() {
@@ -85,4 +94,23 @@ module box() {
     }
 }
 
-box();
+
+module cover() {
+    difference() {
+        box();
+        translate([mountPatternX/2, mountPatternY/2,(boxZ+boxThick)/-2]) {
+            hole();
+        }
+        translate([mountPatternX/-2, mountPatternY/2, (boxZ+boxThick)/-2]) {
+            hole();
+        }
+        translate([mountPatternX/2, mountPatternY/-2, (boxZ+boxThick)/-2]) {
+            hole();
+        }
+        translate([mountPatternX/-2, mountPatternY/-2, (boxZ+boxThick)/-2]) {
+            hole();
+        }
+    
+    }
+}
+cover();
