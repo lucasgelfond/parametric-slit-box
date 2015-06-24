@@ -9,11 +9,11 @@ boxZ = 15;
 boxThick = 6;
 
 //The width of the slit(s).
-slitWidth = 25;
+slitWidth = 21.25;
 //The height of the slit(s).
-slitHeight = 7.5;
+slitHeight = 8;
 //The distance between slits.
-distSlits = 3;
+distSlits = 7.5;
 
 //The X size of the mounting pattern (the first one, ie what mounting pattern your PDB is)
 mountPatternX = 45;
@@ -32,7 +32,7 @@ distPlates = 10;
 //The detail of all spheres/cylinders in the shape.
 sfn = 30;
 
-//Mode changer. Mode 1 is the whole thing put together (roughly, no holes) and mode 2 is the two plates separated. 
+//Mode changer. Mode 1 is what the box would look like put together (assembly mode), and mode 2 is the two plates separated (printing mode). 
 mode = 1;
 
 
