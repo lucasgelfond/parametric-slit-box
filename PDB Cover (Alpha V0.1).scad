@@ -1,6 +1,6 @@
 boxX = 65;
 boxY = 65;
-boxZ = 10;
+boxZ = 8;
 boxThick = 5;
 
 slitWidth = 42.5;
@@ -17,8 +17,8 @@ distPlates = 10;
 sfn = 100;
 mode = 2;
 
-attachMountHoleX = 62.5;
-attachMountHoleY = 62.5;
+attachMountHoleX = 57.5;
+attachMountHoleY = 57.5;
 
 module slit() {
     cube([boxX, slitWidth, slitHeight], center=true);
@@ -81,7 +81,7 @@ module slits() {
     
 
 
-module holes() {
+module mountHoles() {
     translate([mountPatternX/2, mountPatternY/2,(boxZ+boxThick)/-2]) {
         hole();
     }
@@ -96,6 +96,20 @@ module holes() {
     }
 }
 
+module attachementHoles() {
+    translate([attachMountHoleX/2, attachMountHoleY/2,(boxZ+boxThick)/-2]) {
+        hole();
+    }
+        translate([attachMountHoleX/-2, attachMountHoleY/2,(boxZ+boxThick)/-2]) {
+        hole();
+    }
+        translate([attachMountHoleX/2, attachMountHoleY/-2,(boxZ+boxThick)/-2]) {
+        hole();
+    }
+        translate([attachMountHoleX/-2, attachMountHoleY/-2,(boxZ+boxThick)/-2]) {
+        hole();
+    }
+}
 module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
@@ -113,6 +127,12 @@ module box() {
             slits();
         }
         
+        rotate([0,0,0]) {
+            attachementHoles();
+        }
+        rotate([0,180,0]) {
+            attachementHoles();
+        }  
     }
 }
 
@@ -122,7 +142,7 @@ module box() {
 module bottomPlate() {
     difference() {
         box();
-        holes();
+        mountHoles();
         translate([0,0,boxZ/2]) {
             cube([boxX+1, boxY+1, boxZ], center=true);
         }
