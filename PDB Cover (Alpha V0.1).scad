@@ -1,10 +1,10 @@
-boxX = 55;
-boxY = 55;
+boxX = 65;
+boxY = 65;
 boxZ = 10;
-boxThick = 2.5;
+boxThick = 5;
 
-slitWidth = 35;
-slitHeight = 2.5;
+slitWidth = 42.5;
+slitHeight = 4;
 distSlits = 2;
 
 mountPatternX = 45;
@@ -15,9 +15,13 @@ numOfSlits = 1;
 distPlates = 10;
 
 sfn = 100;
+mode = 2;
+
+attachMountHoleX = 62.5;
+attachMountHoleY = 62.5;
 
 module slit() {
-    cube([boxThick*3, slitWidth, slitHeight], center=true);
+    cube([boxX, slitWidth, slitHeight], center=true);
 }
 module hole() {
     cylinder(r=holeSize/2, h = boxThick * 3, $fn = sfn);
@@ -108,6 +112,7 @@ module box() {
         rotate([0,0,270]) {
             slits();
         }
+        
     }
 }
 
@@ -144,6 +149,18 @@ module plates() {
     }
 }
 
-plates();
 
+module mode() {
+    if(mode == 1) {
+        box();
+     }
+     else if(mode == 2) {
+        plates();
+      }
+      else {
+      //Error
+        }
+}
+
+mode();
 
