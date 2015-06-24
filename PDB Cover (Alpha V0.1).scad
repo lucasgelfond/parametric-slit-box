@@ -7,7 +7,7 @@ slitWidth = 10;
 slitHeight = 2.5;
 distSlits = 2;
 
-numOfSlits = 7;
+numOfSlits = 5;
 
 module slit() {
     cube([boxThick*2, slitWidth, slitHeight], center=true);
@@ -32,10 +32,10 @@ module slits() {
             slit();
         }
         for (numOfSlits = [1:(numOfSlits-1)/2]) { //Then, put half the sits on one side of middle slit, and half on the other. 
-            translate([boxX/2, (slitWidth+distSlits/2)*-numOfSlits, 0]) { //Move the slits on the edge of the middle slit, then move them more based on the user-set distance of slits. This is one side of slits.
+            translate([boxX/2, (slitWidth+distSlits)*-numOfSlits, 0]) { //Move the slits on the edge of the middle slit, then move them more based on the user-set distance of slits. This is one side of slits.
                 slit();
             }
-            translate([boxX/2, (slitWidth+distSlits/2)*numOfSlits, 0]) { //Move the slits on the edge of the middle slit, then move them more based on the user-set distance of slits. This is one side of slits.
+            translate([boxX/2, (slitWidth+distSlits)*numOfSlits, 0]) { //Move the slits on the edge of the middle slit, then move them more based on the user-set distance of slits. This is one side of slits.
                 slit();
             }
         }
