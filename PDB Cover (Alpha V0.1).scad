@@ -70,7 +70,18 @@ module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
         cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-boxThick*2],center=true);
-        slits();
+        rotate([0,0,0]) {
+            slits();
+        }
+        rotate([0,0,90]) {
+            slits();
+        }
+        rotate([0,0,180]) {
+            slits();
+        }
+        rotate([0,0,270]) {
+            slits();
+        }
     }
 }
 
