@@ -1,25 +1,45 @@
+//The length of the box (mm).
 boxX = 65;
+//The width of the box (mm).
 boxY = 65;
+//The height of the box (mm).
 boxZ = 8;
-boxThick = 5;
 
+//The thickness of the inside pieces of the box.
+boxThick = 6;
+
+//The width of the slit(s).
 slitWidth = 42.5;
+//The height of the slit(s).
 slitHeight = 4;
+//The distance between slits.
 distSlits = 2;
 
+//The X size of the mounting pattern (the first one, ie what mounting pattern your PDB is)
 mountPatternX = 45;
+//The Y size of the mounting pattern (the first one, ie what mounting pattern your PDB is)
 mountPatternY = 45;
+//The size of all of the screw holes in the model.
 holeSize = 4.5;
 
+
+//The number of slits. This is fully customizable.
 numOfSlits = 1;
+
+//The distance of the plates before they print.
 distPlates = 10;
 
+//The detail of all spheres/cylinders in the shape.
 sfn = 100;
+
+//Mode changer. Mode 1 is the whole thing put together (roughly, no holes) and mode 2 is the two plates separated. 
 mode = 2;
 
-attachMountHoleX = 57.5;
-attachMountHoleY = 57.5;
 
+//The mounting pattern for attaching the two plates (x).
+attachMountHoleX = 57.5;
+//The mounting pattern for attaching the two plates (y).
+attachMountHoleY = 57.5;
 module slit() {
     cube([boxX, slitWidth, slitHeight], center=true);
 }
