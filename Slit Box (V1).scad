@@ -3,7 +3,7 @@ boxX = 65;
 //The width of the box (mm).
 boxY = 65;
 //The height of the box (mm).
-boxZ = 15;
+boxZ = 10;
 
 //The thickness of the inside pieces of the box.
 boxThick = 6;
@@ -37,15 +37,15 @@ mode = 2;
 
 
 //The mounting pattern for attaching the two plates (x).
-attachMountHoleX = 57.5;
+attachMountHoleX = 57;
 //The mounting pattern for attaching the two plates (y).
-attachMountHoleY = 57.5;
+attachMountHoleY = 57;
 
 //The distance to countersink the screw holes.
 countersinkDist =  3;
 
 //The size of the countersunk hole.
-countersunkHoleSize = 6;
+countersunkHoleSize = 7;
 
 overlap = 1;
 
@@ -107,7 +107,7 @@ module countersunkHoles(val) {
 module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
-        cube([boxX-boxThick*2, boxY-boxThick*2, slitHeight],center=true);
+        cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-boxThick*2],center=true);
         //Rotate the slits in each direction.
         for(i = [0:90:270]) rotate([0,0,i]) slits();
         //Rotate the attachment holes on each side.
