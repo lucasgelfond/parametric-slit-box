@@ -3,10 +3,13 @@ boxX = 65;
 //The width of the box (mm).
 boxY = 65;
 //The height of the box (mm).
-boxZ = 10;
+boxZ = 15;
 
 //The thickness of the inside pieces of the box.
-boxThick = 6;
+boxThick = 7;
+
+//The thickness of the bototm and top
+zThick = 1;
 
 //The width of the slit(s).
 slitWidth = 50;
@@ -33,7 +36,7 @@ distPlates = 10;
 sfn = 50;
 
 //Mode changer. Mode 1 is what the box would look like put together (assembly mode), and mode 2 is the two plates separated (printing mode). 
-mode = 2;
+mode = 1;
 
 
 //The mounting pattern for attaching the two plates (x).
@@ -107,7 +110,7 @@ module countersunkHoles(val) {
 module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
-        cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-boxThick*2],center=true);
+        cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-zThick*2],center=true);
         //Rotate the slits in each direction.
         for(i = [0:90:270]) rotate([0,0,i]) slits();
         //Rotate the attachment holes on each side.
