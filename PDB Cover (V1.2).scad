@@ -1,18 +1,15 @@
 //The length of the box (mm).
-boxX = 65;
+boxX = 58.25;
 //The width of the box (mm).
-boxY = 65;
+boxY = 58.25;
 //The height of the box (mm).
 boxZ = 15;
 
 //The thickness of the inside pieces of the box.
-boxThick = 7;
-
-//The thickness of the bototm and top
-zThick = 1;
+boxThick = 2.5;
 
 //The width of the slit(s).
-slitWidth = 50;
+slitWidth = 42.5;
 //The height of the slit(s).
 slitHeight = 7.5;
 //The distance between slits.
@@ -23,8 +20,10 @@ mountPatternX = 45;
 //The Y size of the mounting pattern (the first one, ie what mounting pattern your PDB is)
 mountPatternY = 45;
 //The size of all of the screw holes in the model.
-holeSize = 4.25;
+holeSize = 3.5;
 
+//The cutoff for the bottom part.
+bottomCutoff = 4;
 
 //The number of slits. This is fully customizable.
 numOfSlits = 1;
@@ -36,22 +35,25 @@ distPlates = 10;
 sfn = 50;
 
 //Mode changer. Mode 1 is what the box would look like put together (assembly mode), and mode 2 is the two plates separated (printing mode). 
-mode = 1;
+mode = 2;
 
 
 //The mounting pattern for attaching the two plates (x).
-attachMountHoleX = 57;
+attachMountHoleX = 52.5;
 //The mounting pattern for attaching the two plates (y).
-attachMountHoleY = 57;
+attachMountHoleY = 52.5;
 
 //The distance to countersink the screw holes.
-countersinkDist =  3;
+countersinkDist =  4;
 
 //The size of the countersunk hole.
-countersunkHoleSize = 7;
+countersunkHoleSize = 5.5;
 
+//Overlap for cut holes
 overlap = 1;
 
+//The amount that the holes should go out from the middle, additionally from being centered with the screw (not countersunk) holes.
+csOut = 0;
 
 module slit() {
     cube([boxX, slitWidth, slitHeight], center=true);
@@ -99,7 +101,7 @@ module attachementHoles() {
 }
 module countersunkHoles(val) {
      //Separate variables (n and i) so that four holes are created, one on each side (four plus/negative combos). Variable val is so that they can be put on top of on bottom without the need for a separate module.
-    for(i = [-1, 1], n =[-1, 1]) translate([attachMountHoleX/2*i, attachMountHoleY/2*n, (boxZ-countersinkDist+overlap*2)/2*val]) cylinder(r=countersunkHoleSize/2, h = countersinkDist+overlap, $fn = sfn, center=true);
+    for(i = [-1, 1], n =[-1, 1]) translate([(attachMountHoleX/2+csOut)*i, (attachMountHoleY/2+csOut)*n, (boxZ-countersinkDist+overlap*2)/2*val]) cylinder(r=countersunkHoleSize/2, h = countersinkDist+overlap, $fn = sfn, center=true);
 
 }
 
@@ -110,7 +112,7 @@ module countersunkHoles(val) {
 module box() {
     difference() {
         cube([boxX, boxY, boxZ], center=true);
-        cube([boxX-boxThick*2, boxY-boxThick*2, boxZ-zThick*2],center=true);
+        cube([boxX-bottomCutoff*2, boxY-bottomCutoff*2, boxZ-boxThick*2],center=true);
         //Rotate the slits in each direction.
         for(i = [0:90:270]) rotate([0,0,i]) slits();
         //Rotate the attachment holes on each side.
