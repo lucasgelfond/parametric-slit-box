@@ -1,7 +1,7 @@
 //The length of the box (mm).
-boxX = 58.25;
+boxX = 57.5;
 //The width of the box (mm).
-boxY = 58.25;
+boxY = 57.5;
 //The height of the box (mm).
 boxZ = 15;
 
@@ -47,7 +47,7 @@ attachMountHoleY = 52.5;
 countersinkDist =  4;
 
 //The size of the countersunk hole.
-countersunkHoleSize = 5.5;
+countersunkHoleSize = 4.75;
 
 //Overlap for cut holes
 overlap = 1;
