@@ -1,7 +1,7 @@
 //The length of the box (mm).
-boxX = 57.5;
+boxX = 59;
 //The width of the box (mm).
-boxY = 57.5;
+boxY = 59;
 //The height of the box (mm).
 boxZ = 15;
 
@@ -39,9 +39,9 @@ mode = 2;
 
 
 //The mounting pattern for attaching the two plates (x).
-attachMountHoleX = 52.5;
+attachMountHoleX = 54;
 //The mounting pattern for attaching the two plates (y).
-attachMountHoleY = 52.5;
+attachMountHoleY = 54;
 
 //The distance to countersink the screw holes.
 countersinkDist =  4;
