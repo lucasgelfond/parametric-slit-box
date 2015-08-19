@@ -1,7 +1,7 @@
 //The length of the box (mm).
-boxX = 59;
+boxX = 58.5;
 //The width of the box (mm).
-boxY = 59;
+boxY = 58.5;
 //The height of the box (mm).
 boxZ = 15;
 
@@ -9,7 +9,7 @@ boxZ = 15;
 boxThick = 2.5;
 
 //The width of the slit(s).
-slitWidth = 42.5;
+slitWidth = 40;
 //The height of the slit(s).
 slitHeight = 7.5;
 //The distance between slits.
@@ -39,12 +39,12 @@ mode = 2;
 
 
 //The mounting pattern for attaching the two plates (x).
-attachMountHoleX = 54;
+attachMountHoleX = 53.25;
 //The mounting pattern for attaching the two plates (y).
-attachMountHoleY = 54;
+attachMountHoleY = 53.25;
 
 //The distance to countersink the screw holes.
-countersinkDist =  4;
+countersinkDist =  3;
 
 //The size of the countersunk hole.
 countersunkHoleSize = 4.75;
